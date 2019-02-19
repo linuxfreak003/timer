@@ -11,9 +11,8 @@ type Timer struct {
 }
 
 func NewTimer(d time.Duration) *Timer {
-	t := time.NewTimer(d)
 	return &Timer{
-		Timer: t,
+		Timer: time.NewTimer(d),
 		Start: time.Now(),
 		End:   time.Now().Add(d),
 	}
