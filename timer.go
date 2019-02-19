@@ -1,4 +1,4 @@
-package countdown
+package timer
 
 import (
 	"time"
@@ -12,7 +12,6 @@ type Timer struct {
 
 func NewTimer(d time.Duration) *Timer {
 	t := time.NewTimer(d)
-	t.C = make(chan time.Time)
 	return &Timer{
 		Timer: t,
 		Start: time.Now(),
@@ -32,5 +31,10 @@ func (t *Timer) Remaining() time.Duration {
 
 func (t *Timer) Add(d time.Duration) {
 	t.End = t.End.Add(d)
+	t.Timer = time.NewTimer(t.End.Sub(time.Now()))
+}
+
+func (t *Timer) Subtract(d time.Duration) {
+	t.End = t.End.Add(d * -1)
 	t.Timer = time.NewTimer(t.End.Sub(time.Now()))
 }
